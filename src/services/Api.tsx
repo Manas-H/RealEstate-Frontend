@@ -1,89 +1,104 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance } from "axios";
 
-const API_URL = 'http://localhost:5000/api'; 
+const API_URL = "http://localhost:5000/api";
 
 class ApiService {
-    private api: AxiosInstance;
+  private api: AxiosInstance;
 
-    constructor() {
-        this.api = axios.create({
-            baseURL: API_URL,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-    }
+  constructor() {
+    this.api = axios.create({
+      baseURL: API_URL,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
 
-    // Set JWT Token in the headers
-    setToken(token: string) {
-        if (token) {
-            this.api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        } else {
-            delete this.api.defaults.headers.common['Authorization'];
-        }
+  // Set JWT Token in the headers
+  setToken(token: string) {
+    if (token) {
+      this.api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    } else {
+      delete this.api.defaults.headers.common["Authorization"];
     }
+  }
 
-    // Auth Endpoints
-    async registerAgent(agentData: { name: string; email: string; password: string }) {
-        return this.api.post('/auth/agent/register', agentData);
-    }
+  // Auth Endpoints
+  async registerAgent(agentData: {
+    name: string;
+    email: string;
+    password: string;
+  }) {
+    return this.api.post("/auth/agent/register", agentData);
+  }
 
-    async loginAgent(credentials: { email: string; password: string }) {
-        return this.api.post('/auth/agent/login', credentials);
-    }
+  async loginAgent(credentials: { email: string; password: string }) {
+    return this.api.post("/auth/agent/login", credentials);
+  }
 
-    async registerClient(clientData: { name: string; email: string; password: string }) {
-        return this.api.post('/auth/client/register', clientData);
-    }
+  async registerClient(clientData: {
+    name: string;
+    email: string;
+    password: string;
+  }) {
+    return this.api.post("/auth/client/register", clientData);
+  }
 
-    async loginClient(credentials: { email: string; password: string }) {
-        return this.api.post('/auth/client/login', credentials);
-    }
+  async loginClient(credentials: { email: string; password: string }) {
+    return this.api.post("/auth/client/login", credentials);
+  }
 
-    // Property Endpoints
-    async getProperties() {
-        return this.api.get('/properties');
-    }
+  async getUser() {
+    return this.api.get("/auth/profile");
+  }
 
-    async getPropertyById(id: string) {
-        return this.api.get(`/properties/${id}`);
-    }
+  // Property Endpoints
+  async getProperties() {
+    return this.api.get("/properties");
+  }
 
-    async createProperty(propertyData: {
-        title: string;
-        description: string;
-        price: number;
-        location: string;
-    }) {
-        return this.api.post('/properties', propertyData);
-    }
+  async getPropertyById(id: string) {
+    return this.api.get(`/properties/${id}`);
+  }
 
-    async updateProperty(id: string, propertyData: {
-        title?: string;
-        description?: string;
-        price?: number;
-        location?: string;
-    }) {
-        return this.api.put(`/properties/${id}`, propertyData);
-    }
+  async createProperty(propertyData: {
+    title: string;
+    description: string;
+    price: number;
+    location: string;
+  }) {
+    return this.api.post("/properties", propertyData);
+  }
 
-    async deleteProperty(id: string) {
-        return this.api.delete(`/properties/${id}`);
+  async updateProperty(
+    id: string,
+    propertyData: {
+      title?: string;
+      description?: string;
+      price?: number;
+      location?: string;
     }
+  ) {
+    return this.api.put(`/properties/${id}`, propertyData);
+  }
 
-    // Agent-specific Property Management
-    async getAgentProperties() {
-        return this.api.get('/agents/properties');
-    }
+  async deleteProperty(id: string) {
+    return this.api.delete(`/properties/${id}`);
+  }
 
-    // Client-specific Interest Management
-    async getClientInterestedProperties() {
-        return this.api.get('/clients/interests');
-    }
+  // Agent-specific Property Management
+  async getAgentProperties() {
+    return this.api.get("/agents/properties");
+  }
 
-    async expressInterestInProperty(propertyId: string) {
-        return this.api.post(`/clients/properties/${propertyId}/interest`);
-    }
+  // Client-specific Interest Management
+  async getClientInterestedProperties() {
+    return this.api.get("/clients/interests");
+  }
+
+  async expressInterestInProperty(propertyId: string) {
+    return this.api.post(`/clients/properties/${propertyId}/interest`);
+  }
 }
 
 // Assign the instance to a variable before exporting it

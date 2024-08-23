@@ -29,10 +29,10 @@ const Register: React.FC = () => {
       {/* Content */}
       <div className="relative flex flex-col items-center justify-center h-full">
         {activeTab === null && (
-          <div className="flex space-x-4">
+          <div className="flex flex-col md:flex-row  items-center md:space-x-4">
             <button
               onClick={() => setActiveTab("agent")}
-              className="px-4 py-2 text-lg font-semibold text-white bg-black rounded hover:bg-gray-900 border-[1px] border-gray-50 "
+              className="px-4 py-2 my-3 md:my-0 text-lg font-semibold text-white bg-black rounded hover:bg-gray-900 border-[1px] border-gray-50"
             >
               Register as Agent
             </button>
@@ -47,10 +47,10 @@ const Register: React.FC = () => {
 
         {activeTab && (
           <div
-            className="absolute w-full p-4 transition-transform duration-500 ease-in-out transform bg-white rounded-lg shadow-lg md:w-1/3"
-            style={{ top: activeTab ? "20%" : "50%" }}
+            className="absolute w-[95%] p-4 transition-transform duration-500 ease-in-out transform bg-white rounded-lg shadow-lg md:w-1/3"
+            style={{ top: activeTab ? "10%" : "10%" }}
           >
-            <div className="flex justify-between mb-4">
+            <div className="flex justify-between mb-4 border-b-[1px] border-black w-full pb-2">
               <button
                 onClick={() => setActiveTab(null)}
                 className="text-gray-700 hover:text-gray-900"
