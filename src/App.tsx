@@ -9,6 +9,8 @@ import Register from "./pages/Register";
 import ClientDashboard from "./pages/ClientDashboard";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PrivateRoute from "../src/components/Auth/PrivateRoutes";
+import AgentDashboard from "./pages/AgentDashboard";
+import AddProperty from "./components/Agent/AddProperty";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -21,6 +23,7 @@ function App() {
       dispatch(fetchUser());
     }
   }, [dispatch, user]);
+
   return (
     <div className="App">
       <Router>
@@ -33,6 +36,24 @@ function App() {
             element={
               <PrivateRoute>
                 <ClientDashboard />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/agent-dashboard"
+            element={
+              <PrivateRoute>
+                <AgentDashboard />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/add-property"
+            element={
+              <PrivateRoute>
+                <AddProperty />
               </PrivateRoute>
             }
           />

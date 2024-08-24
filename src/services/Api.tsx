@@ -12,15 +12,34 @@ class ApiService {
         "Content-Type": "application/json",
       },
     });
+    console.log("Initial headers:", this.api.defaults.headers.common);
   }
 
   // Set JWT Token in the headers
   setToken(token: string) {
     if (token) {
-      this.api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      console.log(
+        "Previous Authorization Header:",
+        this.api.defaults.headers.common["Authorization"]
+      );
+
+      // Remove any quotes and trim whitespace
+      const cleanToken = token.replace(/"/g, "").trim();
+
+      this.api.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${cleanToken}`;
+
+      console.log(
+        "New Authorization Header:",
+        this.api.defaults.headers.common["Authorization"]
+      );
     } else {
       delete this.api.defaults.headers.common["Authorization"];
+      console.log("Authorization Header Removed");
     }
+
+    console.log("All headers after setToken:", this.api.defaults.headers);
   }
 
   // Auth Endpoints
@@ -66,8 +85,12 @@ class ApiService {
     description: string;
     price: number;
     location: string;
+    images: string[]; // Include images as Base64 strings
+    propertyType: string;
+    status: string;
+    geoLocation: { lat: number; lng: number };
   }) {
-    return this.api.post("/properties", propertyData);
+    return this.api.post("/agents/properties", propertyData);
   }
 
   async updateProperty(
@@ -77,9 +100,13 @@ class ApiService {
       description?: string;
       price?: number;
       location?: string;
+      images?: string[]; // Include images as Base64 strings
+      propertyType?: string;
+      status?: string;
+      geoLocation?: { lat: number; lng: number };
     }
   ) {
-    return this.api.put(`/properties/${id}`, propertyData);
+    return this.api.put(`/agents/properties/${id}`, propertyData);
   }
 
   async deleteProperty(id: string) {

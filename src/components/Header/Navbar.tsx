@@ -12,7 +12,7 @@ const NavBar: React.FC = () => {
 
   // Access user role from Redux store (adjust according to your state structure)
   const { user } = useSelector((state: RootState) => state.auth);
-  console.log(user)
+  // console.log(user)
 
   const goToLogin = () => navigate("/login");
   const goToRegister = () => navigate("/register");

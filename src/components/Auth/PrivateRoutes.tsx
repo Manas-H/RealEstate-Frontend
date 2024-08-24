@@ -7,4 +7,4 @@ const PrivateRoute = ({ children }: { children: JSX.Element }) => {
   return user ? children : <Navigate to="/login" />;
 };
 
-export default PrivateRoute;
+export default PrivateRoute
