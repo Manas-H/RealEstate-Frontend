@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../redux/slices/authSlice";
 
 interface SidebarProps {
   onSidebarClick: (component: string) => void;
@@ -6,9 +10,16 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ onSidebarClick }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
   };
 
   return (
@@ -78,7 +89,10 @@ const Sidebar: React.FC<SidebarProps> = ({ onSidebarClick }) => {
               </button>
             </li>
             <li>
-              <button className="block px-4 py-2 rounded hover:bg-gray-700 hover:text-white">
+              <button
+                onClick={handleLogout}
+                className="block px-4 py-2 rounded hover:bg-gray-700 hover:text-white"
+              >
                 Logout
               </button>
             </li>

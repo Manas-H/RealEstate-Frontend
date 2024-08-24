@@ -27,7 +27,7 @@ const Login: React.FC = () => {
         navigate("/agent-dashboard");
       } else if (activeTab === "client") {
         await dispatch(loginClient({ email, password })).unwrap();
-        navigate("/client-dashboard");
+        navigate("/");
       }
     } catch (err) {
       // Error will be handled by Redux slice

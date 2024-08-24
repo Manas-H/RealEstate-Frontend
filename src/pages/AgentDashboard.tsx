@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Agent/Sidebar";
-import PropertyForm from "../components/Agent/AddProperty"; // Import the PropertyForm component
+import PropertyForm from "../components/Agent/AddProperty";
 import ListProperty from "../components/Agent/ListProperty";
 import InterestedClient from "../components/Agent/InterestedClients";
 import Profile from "../components/Agent/Profile";
@@ -8,8 +8,18 @@ import Profile from "../components/Agent/Profile";
 const AgentDashboard: React.FC = () => {
   const [activeComponent, setActiveComponent] = useState<string>("");
 
+  useEffect(() => {
+    // Retrieve the active component from localStorage when the component mounts
+    const storedComponent = localStorage.getItem("activeComponent");
+    if (storedComponent) {
+      setActiveComponent(storedComponent);
+    }
+  }, []);
+
   const handleSidebarClick = (component: string) => {
     setActiveComponent(component);
+    // Save the active component to localStorage
+    localStorage.setItem("activeComponent", component);
   };
 
   const renderComponent = () => {

@@ -12,16 +12,16 @@ class ApiService {
         "Content-Type": "application/json",
       },
     });
-    console.log("Initial headers:", this.api.defaults.headers.common);
+    // console.log("Initial headers:", this.api.defaults.headers.common);
   }
 
   // Set JWT Token in the headers
   setToken(token: string) {
     if (token) {
-      console.log(
-        "Previous Authorization Header:",
-        this.api.defaults.headers.common["Authorization"]
-      );
+      // console.log(
+      //   "Previous Authorization Header:",
+      //   this.api.defaults.headers.common["Authorization"]
+      // );
 
       // Remove any quotes and trim whitespace
       const cleanToken = token.replace(/"/g, "").trim();
@@ -30,16 +30,16 @@ class ApiService {
         "Authorization"
       ] = `Bearer ${cleanToken}`;
 
-      console.log(
-        "New Authorization Header:",
-        this.api.defaults.headers.common["Authorization"]
-      );
+      // console.log(
+      //   "New Authorization Header:",
+      //   this.api.defaults.headers.common["Authorization"]
+      // );
     } else {
       delete this.api.defaults.headers.common["Authorization"];
       console.log("Authorization Header Removed");
     }
 
-    console.log("All headers after setToken:", this.api.defaults.headers);
+    // console.log("All headers after setToken:", this.api.defaults.headers);
   }
 
   // Auth Endpoints
@@ -110,7 +110,10 @@ class ApiService {
   }
 
   async deleteProperty(id: string) {
-    return this.api.delete(`/properties/${id}`);
+    return this.api.delete(`/agents/properties/${id}`);
+  }
+  async getClientById(id: string) {
+    return this.api.get(`/agents/clients/${id}`);
   }
 
   // Agent-specific Property Management
