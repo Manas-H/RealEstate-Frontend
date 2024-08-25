@@ -68,13 +68,13 @@ const InterestedClients: React.FC = () => {
   };
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
+    <div className="py-8 max-w-[325px] md:w-full md:mx-auto">
       <h1 className="text-3xl font-bold mb-6">Interested Clients</h1>
       {error ? (
         <div className="text-center text-red-500">{error}</div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="min-w-full bg-white rounded-lg shadow-lg">
+          <table className="min-w-full bg-white rounded-lg shadow-lg overflow-x-auto">
             <thead className="bg-black text-white">
               <tr>
                 <th className="py-3 px-6 text-left">Property Name</th>

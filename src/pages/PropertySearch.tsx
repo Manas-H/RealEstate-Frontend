@@ -11,8 +11,11 @@ const PropertySearch: React.FC = () => {
   const [propertyType, setPropertyType] = useState<string>("");
   const [properties, setProperties] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSearch = async () => {
+    setLoading(true);
+    setError(null);
     try {
       const response = await apiService.searchProperties({
         location,
@@ -24,6 +27,8 @@ const PropertySearch: React.FC = () => {
     } catch (err) {
       setError("Failed to fetch properties.");
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -78,40 +83,52 @@ const PropertySearch: React.FC = () => {
         </button>
 
         {error && <div className="mt-6 text-red-500 text-center">{error}</div>}
-
+        
         <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10">
-          {properties.map((property) => (
-            <div
-              key={property._id} // Use 'id' if it's the correct field
-              className="relative bg-white rounded-lg shadow-lg overflow-hidden group"
-            >
-              <div className="relative h-48">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-opacity duration-300"
-                  style={{ backgroundImage: `url(${property.images[0]})` }}
-                ></div>
-                <div
-                  className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{ backgroundImage: `url(${property.images[1]})` }}
-                ></div>
-                <div
-                  className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{ backgroundImage: `url(${property.images[2]})` }}
-                ></div>
-                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center transition-opacity duration-300 opacity-0 group-hover:opacity-100">
-                  <div className="text-white text-center p-4">
-                    <h3 className="text-lg font-bold mb-2">{property.title}</h3>
-                    <p className="mb-4">{property.description}</p>
-                    <Link to={`/properties/${property._id}`}>
-                      <button className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-700">
-                        Details
-                      </button>
-                    </Link>
+          {loading ? (
+            <div className="col-span-full text-center text-gray-500">
+              Loading...
+            </div>
+          ) : properties.length > 0 ? (
+            properties.map((property) => (
+              <div
+                key={property._id} // Use 'id' if it's the correct field
+                className="relative bg-white rounded-lg shadow-lg overflow-hidden group"
+              >
+                <div className="relative h-48">
+                  <div
+                    className="absolute inset-0 bg-cover bg-center transition-opacity duration-300"
+                    style={{ backgroundImage: `url(${property.images[0]})` }}
+                  ></div>
+                  <div
+                    className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ backgroundImage: `url(${property.images[1]})` }}
+                  ></div>
+                  <div
+                    className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ backgroundImage: `url(${property.images[2]})` }}
+                  ></div>
+                  <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center transition-opacity duration-300 opacity-0 group-hover:opacity-100">
+                    <div className="text-white text-center p-4">
+                      <h3 className="text-lg font-bold mb-2">
+                        {property.title}
+                      </h3>
+                      <p className="mb-4">{property.description}</p>
+                      <Link to={`/properties/${property._id}`}>
+                        <button className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-700">
+                          Details
+                        </button>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
+            ))
+          ) : (
+            <div className="col-span-full text-center text-gray-500">
+              No properties found
             </div>
-          ))}
+          )}
         </div>
       </div>
       {/* <Footer /> */}

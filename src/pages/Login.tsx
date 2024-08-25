@@ -59,13 +59,13 @@ const Login: React.FC = () => {
               onClick={() => setActiveTab("agent")}
               className="px-4 py-2 my-3 md:my-0 text-lg font-semibold text-white bg-black rounded hover:bg-gray-900 border-[1px] border-gray-50"
             >
-              Login
+              Agent Login
             </button>
             <button
               onClick={() => setActiveTab("client")}
               className="px-4 py-2 text-lg font-semibold text-black bg-white rounded hover:bg-gray-100 border-[2px] border-gray-900"
             >
-              Login
+              Client Login
             </button>
           </div>
         )}
@@ -83,7 +83,7 @@ const Login: React.FC = () => {
                 &larr; Back
               </button>
               <h2 className="text-xl font-semibold">
-                {activeTab === "agent" ? "Agent Login" : "Client Login"}
+                {activeTab === "agent" ? " Login" : " Login"}
               </h2>
             </div>
 

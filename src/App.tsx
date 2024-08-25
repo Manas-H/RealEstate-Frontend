@@ -23,6 +23,7 @@ import PropertySearch from "./pages/PropertySearch";
 import Profile from "./components/Agent/Profile";
 import ClientProfile from "./pages/ClientProfile";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 interface DecodedToken {
   id: string;
@@ -89,6 +90,7 @@ function App() {
           <Route path="/all-properties" element={<AllProperties />} />
           <Route path="/properties/:id" element={<PropertyDetail />} />
           <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
 
           <Route
             path="/interests"
