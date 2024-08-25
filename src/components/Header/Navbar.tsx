@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../../redux/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
 import { logout } from "../../redux/slices/authSlice";
 import { jwtDecode } from "jwt-decode";
 
@@ -11,7 +11,6 @@ const NavBar: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
-  // const { user } = useSelector((state: RootState) => state.auth);
   const [decodedUser, setDecodedUser] = useState<any>(null);
 
   const goToLogin = () => navigate("/login");
@@ -27,17 +26,14 @@ const NavBar: React.FC = () => {
       const userToken = localStorage.getItem("user");
 
       if (userToken) {
-        // Only decode if the token is present and not null
         const decoded = jwtDecode(userToken);
-        // console.log(decoded);
         setDecodedUser(decoded);
       } else {
-        // If no token is found, clear the decodedUser state
         setDecodedUser(null);
       }
     } catch (error) {
       console.error("Invalid token:", error);
-      setDecodedUser(null); // Clear the user state if token is invalid
+      setDecodedUser(null);
     }
   }, []);
 
@@ -56,22 +52,24 @@ const NavBar: React.FC = () => {
           <button
             onClick={() => setIsOpen(!isOpen)}
             type="button"
-            className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 "
             aria-controls="mobile-menu"
             aria-expanded={isOpen ? "true" : "false"}
           >
             <span className="sr-only">Open main menu</span>
             <svg
               className="w-6 h-6"
-              fill="currentColor"
-              viewBox="0 0 20 20"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fillRule="evenodd"
-                d="M3 5h14a1 1 0 010 2H3a1 1 0 010-2zm0 4h14a1 1 0 010 2H3a1 1 0 010-2zm0 4h14a1 1 0 010 2H3a1 1 0 010-2z"
-                clipRule="evenodd"
-              ></path>
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16m-7 6h7"
+              />
             </svg>
           </button>
         </div>
@@ -93,10 +91,10 @@ const NavBar: React.FC = () => {
             </li>
             <li>
               <Link
-                to="/all-properties"
+                to="/property-search"
                 className="block py-2 text-gray-700 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-gray-900 lg:p-0 lg:border-b-2 lg:border-transparent lg:hover:border-black"
               >
-                Properties
+                Search Properties
               </Link>
             </li>
             <li>
@@ -115,7 +113,7 @@ const NavBar: React.FC = () => {
                 Contact
               </Link>
             </li>
-            {decodedUser &&(
+            {decodedUser ? (
               <li className="relative">
                 <button
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -125,7 +123,7 @@ const NavBar: React.FC = () => {
                   <span>{decodedUser.name}</span>
                 </button>
                 {isDropdownOpen && (
-                  <div className="absolute right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg w-52">
+                  <div className="absolute z-50 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg w-52">
                     <ul className="py-2">
                       <li>
                         <Link
@@ -137,7 +135,7 @@ const NavBar: React.FC = () => {
                       </li>
                       <li>
                         <Link
-                          to="/profile"
+                          to="/client-profile"
                           className="block text-sm text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
                         >
                           Profile
@@ -155,18 +153,33 @@ const NavBar: React.FC = () => {
                   </div>
                 )}
               </li>
+            ) : (
+              <div className="flex flex-col lg:flex-row items-center lg:space-x-4">
+                <button
+                  className="block lg:hidden  font-medium py-1 px-6 rounded hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 mb-2 lg:mb-0"
+                  onClick={goToLogin}
+                >
+                  Login
+                </button>
+                <button
+                  className="block lg:hidden  font-medium py-1 px-6 rounded hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                  onClick={goToRegister}
+                >
+                  Register
+                </button>
+              </div>
             )}
           </ul>
           {!decodedUser && (
-            <div className="flex items-center">
+            <div className="hidden lg:flex items-center">
               <button
-                className="hidden lg:block bg-black text-white font-medium py-1 px-6 md:ml-10 rounded hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 md:mr-2 mb-1"
+                className="bg-black text-white font-medium py-1 px-6 md:ml-10 rounded hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 md:mr-2 mb-1"
                 onClick={goToLogin}
               >
                 Login
               </button>
               <button
-                className="hidden lg:block bg-black text-white font-medium py-1 px-6 rounded hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 md:mr-8 mb-1"
+                className="bg-black text-white font-medium py-1 px-6 rounded hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 md:mr-8 mb-1"
                 onClick={goToRegister}
               >
                 Register

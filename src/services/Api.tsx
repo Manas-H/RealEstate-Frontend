@@ -126,6 +126,15 @@ class ApiService {
     return this.api.get("/clients/interests");
   }
 
+  async searchProperties(params: {
+    location?: string;
+    price?: string;
+    title?: string;
+    propertyType?: string;
+  }) {
+    return this.api.get("clients/properties", { params });
+  }
+
   async expressInterestInProperty(propertyId: string) {
     return this.api.post(`/clients/properties/${propertyId}/interest`);
   }

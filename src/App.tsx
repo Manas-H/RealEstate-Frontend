@@ -19,6 +19,10 @@ import AddProperty from "./components/Agent/AddProperty";
 import AllProperties from "./pages/AllProperties";
 import PropertyDetail from "./pages/PropertyDetail";
 import InterestedProperties from "./pages/ClientInterest";
+import PropertySearch from "./pages/PropertySearch";
+import Profile from "./components/Agent/Profile";
+import ClientProfile from "./pages/ClientProfile";
+import About from "./pages/About";
 
 interface DecodedToken {
   id: string;
@@ -82,28 +86,42 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route
-            path="/all-properties"
-            element={
-              <PrivateRoute>
-                <AllProperties />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/properties/:id"
-            element={
-              <PrivateRoute>
-                <PropertyDetail />
-              </PrivateRoute>
-            }
-          />
+          <Route path="/all-properties" element={<AllProperties />} />
+          <Route path="/properties/:id" element={<PropertyDetail />} />
+          <Route path="/about" element={<About />} />
 
           <Route
             path="/interests"
             element={
               <PrivateRoute>
                 <InterestedProperties />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/property-search"
+            element={
+              <PrivateRoute>
+                <PropertySearch />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/client-profile"
+            element={
+              <PrivateRoute>
+                <ClientProfile />
               </PrivateRoute>
             }
           />

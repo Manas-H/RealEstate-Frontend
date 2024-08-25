@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AgentForm from "../components/Register/AgentRegister";
 import ClientForm from "../components/Register/ClientRegister";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"agent" | "client" | null>(null);
@@ -67,6 +67,13 @@ const Register: React.FC = () => {
             {/* Conditionally render the AgentForm or ClientForm */}
 
             {activeTab === "agent" ? <AgentForm /> : <ClientForm />}
+
+            <div className="text-sm mt-2">
+              Don't have an account?{" "}
+              <Link className="text-sm text-blue-500 pl-2" to="/login">
+                Sign In
+              </Link>
+            </div>
           </div>
         )}
       </div>

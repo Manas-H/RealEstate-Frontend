@@ -4,6 +4,7 @@ import apiService from "../../services/Api";
 interface Property {
   _id: string;
   title: string;
+  propertyType: string;
   interestedClients: string[]; // Array of client IDs
 }
 
@@ -29,7 +30,9 @@ const InterestedClients: React.FC = () => {
     }
     try {
       const response = await apiService.getAgentProperties();
-      const propertiesData = response.data;
+      const propertiesData = response.data.filter(
+        (property: Property) => property.interestedClients.length > 0
+      ); // Only include properties with interested clients
       setProperties(propertiesData);
 
       // Collect unique client IDs from all properties
@@ -70,54 +73,52 @@ const InterestedClients: React.FC = () => {
       {error ? (
         <div className="text-center text-red-500">{error}</div>
       ) : (
-        <div className="space-y-6">
-          {properties.map((property) => (
-            <div
-              key={property._id}
-              className="bg-white rounded-lg shadow-lg p-6"
-            >
-              <h2 className="text-2xl font-semibold mb-4">{property.title}</h2>
-              {property.interestedClients.length > 0 ? (
-                <div className="overflow-x-auto">
-                  <table className="min-w-full bg-gray-100 rounded-lg">
-                    <thead className="bg-black text-white">
-                      <tr>
-                        <th className="py-3 px-6 text-left">Client Name</th>
-                        <th className="py-3 px-6 text-left">Email</th>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white rounded-lg shadow-lg">
+            <thead className="bg-black text-white">
+              <tr>
+                <th className="py-3 px-6 text-left">Property Name</th>
+                <th className="py-3 px-6 text-left">Property Type</th>
+                <th className="py-3 px-6 text-left">Client Name</th>
+                <th className="py-3 px-6 text-left">Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {properties.length > 0 ? (
+                properties.map((property) =>
+                  property.interestedClients.map((clientId) => {
+                    const client = clients[clientId];
+                    return client ? (
+                      <tr
+                        key={`${property._id}-${client._id}`}
+                        className="border-b hover:bg-gray-200 transition-colors"
+                      >
+                        <td className="py-4 px-6">{property.title}</td>
+                        <td className="py-4 px-6">{property.propertyType}</td>
+                        <td className="py-4 px-6">{client.name}</td>
+                        <td className="py-4 px-6">{client.email}</td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {property.interestedClients.map((clientId) => {
-                        const client = clients[clientId];
-                        return client ? (
-                          <tr
-                            key={client._id}
-                            className="border-b hover:bg-gray-200 transition-colors"
-                          >
-                            <td className="py-4 px-6">{client.name}</td>
-                            <td className="py-4 px-6">{client.email}</td>
-                          </tr>
-                        ) : (
-                          <tr key={clientId}>
-                            <td
-                              colSpan={2}
-                              className="py-4 px-6 text-center text-gray-500"
-                            >
-                              Loading client details...
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
+                    ) : (
+                      <tr key={clientId}>
+                        <td
+                          colSpan={4}
+                          className="py-4 px-6 text-center text-gray-500"
+                        >
+                          Loading client details...
+                        </td>
+                      </tr>
+                    );
+                  })
+                )
               ) : (
-                <div className="text-gray-500">
-                  No clients have expressed interest in this property.
-                </div>
+                <tr>
+                  <td colSpan={4} className="py-4 px-6 text-center text-gray-500">
+                    No clients have expressed interest in any properties.
+                  </td>
+                </tr>
               )}
-            </div>
-          ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>

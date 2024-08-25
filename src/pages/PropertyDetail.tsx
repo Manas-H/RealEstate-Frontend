@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ApiService from "../services/Api";
 import NavBar from "../components/Header/Navbar";
 
@@ -8,6 +8,7 @@ const DetailsProperty: React.FC = () => {
   const [property, setProperty] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true); // State to track loading status
   const [interestSubmitted, setInterestSubmitted] = useState<boolean>(false); // Track interest submission
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProperty = async () => {
@@ -20,7 +21,7 @@ const DetailsProperty: React.FC = () => {
       try {
         const response = await ApiService.getPropertyById(id); // Adjust API method if necessary
         setProperty(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.error("Error fetching property:", error);
       } finally {
@@ -35,7 +36,13 @@ const DetailsProperty: React.FC = () => {
     if (!id) return;
 
     const token = localStorage.getItem("user");
-    console.log("Token being sent:", token); // Debugging
+    // console.log("Token being sent:", token);
+
+    if (!token) {
+      // Redirect to login if token is not present
+      navigate("/login");
+      return;
+    }
 
     // Set token in ApiService
     ApiService.setToken(token || "");
@@ -100,7 +107,7 @@ const DetailsProperty: React.FC = () => {
                     className={`px-6 py-2 text-lg font-semibold text-white rounded-lg ${
                       interestSubmitted
                         ? "bg-gray-500 cursor-not-allowed"
-                        : "bg-blue-600 hover:bg-blue-700"
+                        : "bg-black hover:bg-gray-700"
                     }`}
                   >
                     {interestSubmitted ? "Interest Noted" : "I'm Interested"}

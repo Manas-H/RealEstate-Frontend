@@ -28,6 +28,10 @@ const AllProperties: React.FC = () => {
   return (
     <div>
       <NavBar />
+
+      <div className="text-4xl font-semibold my-5">
+        All Properties
+      </div>
       <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {properties.map((property) => (
           <div
@@ -52,7 +56,7 @@ const AllProperties: React.FC = () => {
                   <h3 className="text-lg font-bold mb-2">{property.title}</h3>
                   <p className="mb-4">{property.description}</p>
                   <Link to={`/properties/${property._id}`}>
-                    <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    <button className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-700">
                       Details
                     </button>
                   </Link>

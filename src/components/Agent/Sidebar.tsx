@@ -27,7 +27,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSidebarClick }) => {
       {/* Hamburger Button */}
       <button
         onClick={toggleSidebar}
-        className="fixed top-4 right-4 z-50 p-2 text-gray-700 bg-white border rounded-full shadow-lg focus:outline-none md:hidden lg:hidden"
+        className="fixed top-4 right-4 z-50 p-2 text-gray-700 bg-white border focus:outline-none md:hidden lg:hidden"
       >
         <svg
           className="w-6 h-6"

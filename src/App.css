@@ -37,22 +37,22 @@
   }
 }
 
-/* @keyframes fadeInOut {
+@keyframes fadeInOut {
   0% { opacity: 1; }
   33% { opacity: 0; }
   66% { opacity: 0; }
   100% { opacity: 1; }
 }
 
-.bg-cover {
+.animate {
   animation: fadeInOut 15s ease-in-out infinite;
 }
 
-.bg-cover:nth-child(2) {
+.animate:nth-child(2) {
   animation-delay: 5s;
 }
 
-.bg-cover:nth-child(3) {
+.animate:nth-child(3) {
   animation-delay: 10s;
-} */
+}
 

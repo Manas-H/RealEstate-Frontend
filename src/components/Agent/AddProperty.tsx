@@ -72,10 +72,20 @@ const AddProperty: React.FC = () => {
     // Send data to the backend
     try {
       await apiServiceInstance.createProperty(propertyData);
-      console.log("Property submitted successfully");
+      // console.log("Property submitted successfully");
       // Optionally clear the form or redirect after successful submission
-      // dispatch(clearProperty()); // If you want to clear the form after submission
+      alert("Property submitted successfully");
+      setTitle("");
+      setDescription("");
+      setPrice(0);
+      setLocation("");
+      setImages([]);
+      setPropertyType("");
+      setStatus("available");
+      setGeoLocation({ lat: 0, lng: 0 });
+      // dispatch(clearProperty());
     } catch (error) {
+      alert("Error in Submitting the property");
       console.error("Error submitting property:", error);
     }
   };
