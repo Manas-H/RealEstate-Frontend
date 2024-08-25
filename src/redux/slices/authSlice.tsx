@@ -23,6 +23,7 @@ export const registerAgent = createAsyncThunk(
       password: string;
       number: string;
       licenseNumber: string;
+      role: string;
     },
     thunkAPI
   ) => {

@@ -38,7 +38,7 @@ const AddProperty: React.FC = () => {
 
     // Assuming you get the token from local storage
     const token = localStorage.getItem("user");
-    console.log("Token being sent:", token); 
+    // console.log("Token being sent:", token); 
 
     // Set token in ApiService
     apiServiceInstance.setToken(token || "");

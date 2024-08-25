@@ -124,6 +124,7 @@ const AgentRegister: React.FC = () => {
             password: formData.password,
             number: formData.number,
             licenseNumber: formData.licenseNumber,
+            role: formData.role,
           })
         ).unwrap(); // unwrap the result to get the resolved value or throw an error
 

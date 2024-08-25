@@ -59,7 +59,7 @@ const ListProperty: React.FC = () => {
   };
 
   return (
-    <div className="py-8 max-w-[325px] md:w-full md:mx-auto">
+    <div className="py-8 max-w-[325px] md:max-w-full mx-auto">
       <h1 className="text-2xl font-bold mb-4">Your Properties</h1>
       {error && <p className="text-red-500 mb-4">{error}</p>}
       {properties.length === 0 ? (

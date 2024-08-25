@@ -5,10 +5,12 @@ import Footer from "../components/Footer/Footer";
 
 const ClientProfile: React.FC = () => {
   return (
-    <div>
-      <NavBar />
-      <div className="mt-10">
-        <Profile />
+    <div className="bg-linear flex flex-col justify-between min-h-[100vh]">
+      <div>
+        <NavBar />
+        <div className="mt-10">
+          <Profile />
+        </div>
       </div>
       <Footer />
     </div>

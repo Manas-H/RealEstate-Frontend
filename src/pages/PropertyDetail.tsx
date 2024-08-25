@@ -59,9 +59,9 @@ const DetailsProperty: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="bg-linear">
       <NavBar />
-      <div className="p-4 max-w-6xl mx-auto">
+      <div className="bg-white px-14 py-5 rounded-lg shadow-lg mt-10 max-w-6xl mx-auto">
         {loading ? (
           <div className="text-center text-xl font-semibold">Loading...</div>
         ) : (

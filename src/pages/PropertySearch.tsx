@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import apiService from "../services/Api";
 import NavBar from "../components/Header/Navbar";
 import { Link } from "react-router-dom";
-// import Footer from "../components/Footer/Footer";
+import Footer from "../components/Footer/Footer";
 
 const PropertySearch: React.FC = () => {
   const [location, setLocation] = useState<string>("");
@@ -33,58 +33,61 @@ const PropertySearch: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="bg-linear">
       <NavBar />
-      <div className="p-8 max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Search Properties</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <input
-            type="text"
-            placeholder="Location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className="border p-2 rounded-lg"
-          />
-          <input
-            type="text"
-            placeholder="Max Price"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            className="border p-2 rounded-lg"
-          />
-          <input
-            type="text"
-            placeholder="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="border p-2 rounded-lg"
-          />
+      <div className=" p-8 max-w-6xl mx-auto">
+        <div className="bg-white px-10 py-3 rounded-lg shadow-lg">
+          <h1 className="text-3xl font-bold mb-6">Search Properties</h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <input
+              type="text"
+              placeholder="Location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="border p-2 rounded-lg"
+            />
+            <input
+              type="text"
+              placeholder="Max Price"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              className="border p-2 rounded-lg"
+            />
+            <input
+              type="text"
+              placeholder="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="border p-2 rounded-lg"
+            />
 
-          {/* Property Type */}
-          <div className="">
-            <select
-              className="w-full px-3 py-2 text-black border rounded-lg focus:outline-none focus:ring focus:ring-gray-300"
-              value={propertyType}
-              onChange={(e) => setPropertyType(e.target.value)}
-            >
-              <option value="house">House</option>
-              <option value="apartment">Apartment</option>
-              <option value="condo">Condo</option>
-              <option value="townhouse">Townhouse</option>
-              <option value="land">Land</option>
-            </select>
+            {/* Property Type */}
+            <div className="">
+              <select
+                className="w-full px-3 py-2 text-black border rounded-lg focus:outline-none focus:ring focus:ring-gray-300"
+                value={propertyType}
+                onChange={(e) => setPropertyType(e.target.value)}
+              >
+                <option value="house">House</option>
+                <option value="apartment">Apartment</option>
+                <option value="condo">Condo</option>
+                <option value="townhouse">Townhouse</option>
+                <option value="land">Land</option>
+              </select>
+            </div>
           </div>
+          <button
+            onClick={handleSearch}
+            className="bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors"
+          >
+            Search
+          </button>
+          {error && (
+            <div className="mt-6 text-red-500 text-center">{error}</div>
+          )}
         </div>
-        <button
-          onClick={handleSearch}
-          className="bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors"
-        >
-          Search
-        </button>
 
-        {error && <div className="mt-6 text-red-500 text-center">{error}</div>}
-        
-        <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10">
+        <div className="bg-white px-10 py-3 rounded-lg shadow-lg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-10 mt-10">
           {loading ? (
             <div className="col-span-full text-center text-gray-500">
               Loading...
@@ -99,15 +102,21 @@ const PropertySearch: React.FC = () => {
                   <div
                     className="absolute inset-0 bg-cover bg-center transition-opacity duration-300"
                     style={{ backgroundImage: `url(${property.images[0]})` }}
-                  ></div>
+                  >
+                    <h2 className="bg-black text-white">{property.title}</h2>
+                  </div>
                   <div
                     className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                     style={{ backgroundImage: `url(${property.images[1]})` }}
-                  ></div>
+                  >
+                    <h2>{property.title}</h2>
+                  </div>
                   <div
                     className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                     style={{ backgroundImage: `url(${property.images[2]})` }}
-                  ></div>
+                  >
+                    <h2>{property.title}</h2>
+                  </div>
                   <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center transition-opacity duration-300 opacity-0 group-hover:opacity-100">
                     <div className="text-white text-center p-4">
                       <h3 className="text-lg font-bold mb-2">
@@ -131,7 +140,7 @@ const PropertySearch: React.FC = () => {
           )}
         </div>
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };

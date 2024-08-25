@@ -6,8 +6,8 @@ const About: React.FC = () => {
   return (
     <div>
       <NavBar />
-      <div className="bg-white text-black min-h-screen py-12 px-4">
-        <div className="max-w-6xl mx-auto">
+      <div className="bg-linear text-black min-h-screen py-12 px-4">
+        <div className="max-w-6xl mx-auto bg-white p-4 rounded-md shadow-lg">
           <h1 className="text-4xl font-bold mb-8 text-center">About Us</h1>
           <div className="flex flex-col lg:flex-row lg:space-x-12">
             {/* Image Section */}

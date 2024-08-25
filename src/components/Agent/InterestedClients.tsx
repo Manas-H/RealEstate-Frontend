@@ -36,25 +36,32 @@ const InterestedClients: React.FC = () => {
       setProperties(propertiesData);
 
       // Collect unique client IDs from all properties
-      const clientIds = Array.from(
+      const clientIds: string[] = Array.from(
         new Set(
           propertiesData.flatMap((prop: Property) => prop.interestedClients)
         )
       );
 
       // Fetch client details for each unique client ID
-      const clientDetailsPromises = clientIds.map((clientId) => {
-        if (typeof clientId === "string") {
-          return apiService.getClientById(clientId);
+      const clientDetailsPromises = clientIds.map(async (clientId: string) => {
+        try {
+          const clientResponse = await apiService.getClientById(clientId);
+          return clientResponse.data;
+        } catch (err) {
+          // Handle the case where a client is not found
+          console.error(`Client ID ${clientId} not found:`, err);
+          return null; // Return null or some indicator of a failed fetch
         }
-        return Promise.reject(new Error("Client ID must be a string"));
       });
 
       const clientsData = await Promise.all(clientDetailsPromises);
+
+      // Reduce client data into a map, ignoring null entries
       const clientsMap = clientsData.reduce(
-        (acc: { [key: string]: Client }, clientResponse) => {
-          const client = clientResponse.data;
-          acc[client._id] = client;
+        (acc: { [key: string]: Client }, client) => {
+          if (client) { // Only add valid clients
+            acc[client._id] = client;
+          }
           return acc;
         },
         {}
@@ -68,7 +75,7 @@ const InterestedClients: React.FC = () => {
   };
 
   return (
-    <div className="py-8 max-w-[325px] md:w-full md:mx-auto">
+    <div className="py-8 max-w-[325px] md:max-w-full mx-auto">
       <h1 className="text-3xl font-bold mb-6">Interested Clients</h1>
       {error ? (
         <div className="text-center text-red-500">{error}</div>
@@ -85,7 +92,7 @@ const InterestedClients: React.FC = () => {
             </thead>
             <tbody>
               {properties.length > 0 ? (
-                properties.map((property) =>
+                properties.flatMap((property) =>
                   property.interestedClients.map((clientId) => {
                     const client = clients[clientId];
                     return client ? (
@@ -99,12 +106,9 @@ const InterestedClients: React.FC = () => {
                         <td className="py-4 px-6">{client.email}</td>
                       </tr>
                     ) : (
-                      <tr key={clientId}>
-                        <td
-                          colSpan={4}
-                          className="py-4 px-6 text-center text-gray-500"
-                        >
-                          Loading client details...
+                      <tr key={`${property._id}-${clientId}`} className="border-b">
+                        <td colSpan={4} className="py-4 px-6 text-center text-red-500">
+                          Client details not found for ID: {clientId}
                         </td>
                       </tr>
                     );
