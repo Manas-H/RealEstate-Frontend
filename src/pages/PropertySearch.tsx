@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import apiService from "../services/Api";
 import NavBar from "../components/Header/Navbar";
 import { Link } from "react-router-dom";
+// import Footer from "../components/Footer/Footer";
 
 const PropertySearch: React.FC = () => {
   const [location, setLocation] = useState<string>("");
@@ -113,6 +114,7 @@ const PropertySearch: React.FC = () => {
           ))}
         </div>
       </div>
+      {/* <Footer /> */}
     </div>
   );
 };

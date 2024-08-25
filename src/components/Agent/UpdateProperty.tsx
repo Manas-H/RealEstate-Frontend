@@ -90,9 +90,9 @@ const UpdateProperty: React.FC<UpdatePropertyProps> = ({
       await apiServiceInstance.updateProperty(propertyId, propertyData);
       alert("Property updated successfully");
       apiService.getAgentProperties();
-      onClose(); // Close modal on success
+      onClose(); 
       onUpdate();
-      dispatch(clearProperty()); // Optionally clear the property state
+      dispatch(clearProperty()); 
     } catch (error) {
       console.error("Error updating property:", error);
       alert("Failed to update property. Please try again.");

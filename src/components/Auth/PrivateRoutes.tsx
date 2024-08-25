@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../redux/store";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { logout } from "../../redux/slices/authSlice";
 import { isTokenExpired } from "../Auth/Utility";
 

@@ -24,7 +24,6 @@ const Profile: React.FC = () => {
 
   const fetchUserProfile = async () => {
     try {
-      // Assuming you get the token from local storage
       const token = localStorage.getItem("user");
       // console.log("Token being sent:", token);
 
@@ -33,7 +32,7 @@ const Profile: React.FC = () => {
       const response = await apiService.getUser();
       const userData = response.data;
       // console.log(userData)
-      // Ensure all fields have a default value
+  
       setProfile({
         name: userData.name || "",
         email: userData.email || "",
@@ -57,7 +56,7 @@ const Profile: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // await apiService.updateUser(profile); // Assuming you have an updateUser API call
+      // await apiService.updateUser(profile); 
       // setSuccess("Profile updated successfully!");
       // setError(null);
     } catch (error) {

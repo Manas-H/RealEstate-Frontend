@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ApiService from "../services/Api";
 import NavBar from "../components/Header/Navbar";
+import MapComponent from "../components/Map/Map";
+// import Footer from "../components/Footer/Footer";
 
 const DetailsProperty: React.FC = () => {
   const { id } = useParams<{ id?: string }>(); // id is possibly undefined
@@ -118,6 +120,17 @@ const DetailsProperty: React.FC = () => {
           )
         )}
       </div>
+
+      {property && property.geoLocation && (
+        <div className="mt-8 mx-5">
+          <MapComponent
+            lat={property.geoLocation.lat}
+            lon={property.geoLocation.lng}
+          />
+        </div>
+      )}
+
+      {/* <Footer /> */}
     </div>
   );
 };

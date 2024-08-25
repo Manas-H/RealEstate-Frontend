@@ -38,7 +38,7 @@ const AddProperty: React.FC = () => {
 
     // Assuming you get the token from local storage
     const token = localStorage.getItem("user");
-    console.log("Token being sent:", token); // Debugging
+    console.log("Token being sent:", token); 
 
     // Set token in ApiService
     apiServiceInstance.setToken(token || "");
@@ -50,7 +50,7 @@ const AddProperty: React.FC = () => {
         description,
         price,
         location,
-        images, // Base64 encoded images
+        images, 
         propertyType,
         status,
         geoLocation,
@@ -68,12 +68,12 @@ const AddProperty: React.FC = () => {
       status,
       geoLocation,
     };
-    console.log(propertyData);
+    // console.log(propertyData);
     // Send data to the backend
     try {
       await apiServiceInstance.createProperty(propertyData);
       // console.log("Property submitted successfully");
-      // Optionally clear the form or redirect after successful submission
+      
       alert("Property submitted successfully");
       setTitle("");
       setDescription("");

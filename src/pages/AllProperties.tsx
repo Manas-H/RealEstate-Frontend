@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ApiService from "../services/Api"; // Adjust the import based on your file structure
 import NavBar from "../components/Header/Navbar";
 import { Link } from "react-router-dom";
+// import Footer from "../components/Footer/Footer";
 
 interface Property {
   _id: number; // Ensure this matches your API response
@@ -26,12 +27,10 @@ const AllProperties: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="">
       <NavBar />
 
-      <div className="text-4xl font-semibold my-5">
-        All Properties
-      </div>
+      <div className="text-4xl font-semibold my-5">All Properties</div>
       <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {properties.map((property) => (
           <div
@@ -66,6 +65,8 @@ const AllProperties: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {/* <Footer /> */}
     </div>
   );
 };

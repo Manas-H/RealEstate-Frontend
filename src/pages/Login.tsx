@@ -30,7 +30,8 @@ const Login: React.FC = () => {
         navigate("/");
       }
     } catch (err) {
-      // Error will be handled by Redux slice
+      console.log(err);
+      console.error(err);
     }
   };
 
@@ -58,13 +59,13 @@ const Login: React.FC = () => {
               onClick={() => setActiveTab("agent")}
               className="px-4 py-2 my-3 md:my-0 text-lg font-semibold text-white bg-black rounded hover:bg-gray-900 border-[1px] border-gray-50"
             >
-              Agent Login
+              Login
             </button>
             <button
               onClick={() => setActiveTab("client")}
               className="px-4 py-2 text-lg font-semibold text-black bg-white rounded hover:bg-gray-100 border-[2px] border-gray-900"
             >
-              Client Login
+              Login
             </button>
           </div>
         )}

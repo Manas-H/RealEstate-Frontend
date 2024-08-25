@@ -1,5 +1,6 @@
 import React from "react";
 import NavBar from "../components/Header/Navbar";
+// import Footer from "../components/Footer/Footer";
 
 const About: React.FC = () => {
   return (
@@ -20,21 +21,27 @@ const About: React.FC = () => {
 
             {/* Content Section */}
             <div className="lg:w-full lg:mx-20">
-              <h2 className="text-3xl font-semibold mb-4 lg:text-left">Who We Are</h2>
+              <h2 className="text-3xl font-semibold mb-4 lg:text-left">
+                Who We Are
+              </h2>
               <p className="text-lg mb-6 text-justify">
                 We are a dedicated team of professionals committed to providing
                 exceptional real estate services. Our team combines industry
                 expertise with a passion for helping clients find their perfect
                 homes and investment properties.
               </p>
-              <h2 className="text-3xl font-semibold mb-4 lg:text-left">Our Mission</h2>
+              <h2 className="text-3xl font-semibold mb-4 lg:text-left">
+                Our Mission
+              </h2>
               <p className="text-lg mb-6 text-justify">
                 Our mission is to revolutionize the real estate experience by
                 offering personalized and innovative solutions. We aim to exceed
                 expectations and create lasting relationships with our clients
                 through transparency, integrity, and excellence.
               </p>
-              <h2 className="text-3xl font-semibold mb-4 lg:text-left">Our Values</h2>
+              <h2 className="text-3xl font-semibold mb-4 lg:text-left">
+                Our Values
+              </h2>
               <ul className="list-disc list-inside mb-6 space-y-2 text-justify">
                 <li className="text-lg">
                   Integrity - We uphold the highest ethical standards in
@@ -58,6 +65,7 @@ const About: React.FC = () => {
           </div>
         </div>
       </div>
+      {/* <Footer /> */}
     </div>
   );
 };

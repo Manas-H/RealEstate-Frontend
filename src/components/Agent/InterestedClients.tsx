@@ -5,7 +5,7 @@ interface Property {
   _id: string;
   title: string;
   propertyType: string;
-  interestedClients: string[]; // Array of client IDs
+  interestedClients: string[]; 
 }
 
 interface Client {

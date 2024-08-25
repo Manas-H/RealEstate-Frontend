@@ -37,7 +37,7 @@ const ListProperty: React.FC = () => {
   };
 
   const handlePropertyUpdated = () => {
-    fetchProperties(); // Refresh properties list after update
+    fetchProperties(); 
   };
 
   const handleDeleteClick = async (id: string) => {
@@ -46,7 +46,7 @@ const ListProperty: React.FC = () => {
       try {
         await apiService.deleteProperty(id);
         alert("Property deleted successfully!");
-        fetchProperties(); // Refresh properties list after delete
+        fetchProperties(); 
       } catch (err) {
         alert("Failed to delete property.");
         console.error(err);

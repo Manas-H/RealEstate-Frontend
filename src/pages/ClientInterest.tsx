@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ApiService from "../services/Api";
 import NavBar from "../components/Header/Navbar";
+// import Footer from "../components/Footer/Footer";
 
 interface Property {
   _id: string;
@@ -85,6 +86,7 @@ const InterestedProperties: React.FC = () => {
           </div>
         )}
       </div>
+      {/* <Footer /> */}
     </div>
   );
 };
